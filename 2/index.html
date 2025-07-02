@@ -618,6 +618,39 @@
     </div>
 
     <script>
+      // Função para preservar parâmetros importantes (UTM, tracking, etc.)
+      function preserveImportantParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const importantParams = [
+          "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "utm_id",
+          "fbclid", "gclid", "xcod", "src", "referrer", "source"
+        ];
+        
+        const preservedParams = new URLSearchParams();
+        
+        importantParams.forEach((param) => {
+          if (urlParams.has(param)) {
+            preservedParams.set(param, urlParams.get(param));
+          }
+        });
+        
+        return preservedParams;
+      }
+
+      // Função para criar URL com todos os parâmetros preservados
+      function createUrlWithParams(baseUrl, additionalParams = {}) {
+        const preservedParams = preserveImportantParams();
+        
+        // Adicionar parâmetros adicionais
+        Object.entries(additionalParams).forEach(([key, value]) => {
+          if (value) {
+            preservedParams.set(key, value);
+          }
+        });
+        
+        return `${baseUrl}?${preservedParams.toString()}`;
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
         // Verificar se temos os dados da API no localStorage
         const dadosUsuarioJSON = localStorage.getItem("dadosUsuario");
@@ -873,7 +906,7 @@
 
             const mapearSolicitouCredito = {
               aprovado: "Sim, foi aprovado",
-              negado: "Sim, foi negado",
+              negado: "Sim, fui negado",
               nao: "Não",
             };
 
@@ -921,45 +954,29 @@
                   console.error("Erro ao salvar dados:", data.message);
                 }
                 // Continuar redirecionamento independentemente da resposta
-                // Obter todos os parâmetros da URL atual
-                const urlAtual = new URLSearchParams(window.location.search);
-
-                // Criar um novo objeto URLSearchParams para a nova URL
-                const novaUrl = new URLSearchParams();
-
-                // Adicionar todos os parâmetros atuais à nova URL
-                for (const [chave, valor] of urlAtual.entries()) {
-                  novaUrl.append(chave, valor);
-                }
-
-                // Adicionar ou atualizar parâmetros específicos
-                novaUrl.set("cpf", cpfLimpo);
-                novaUrl.set("nome", dadosUsuario.nome);
-                novaUrl.set("numero", telefoneFormatado);
+                
+                // Criar URL com todos os parâmetros preservados
+                const redirectUrl = createUrlWithParams("../3/index.html", {
+                  cpf: cpfLimpo,
+                  nome: dadosUsuario.nome,
+                  numero: telefoneFormatado
+                });
 
                 // Redirecionar para a página de simulação com todos os parâmetros
-                window.location.href = `../3/index.html?${novaUrl.toString()}`;
+                window.location.href = redirectUrl;
               })
               .catch((error) => {
                 console.error("Erro na requisição:", error);
-                // Obter todos os parâmetros da URL atual
-                const urlAtual = new URLSearchParams(window.location.search);
-
-                // Criar um novo objeto URLSearchParams para a nova URL
-                const novaUrl = new URLSearchParams();
-
-                // Adicionar todos os parâmetros atuais à nova URL
-                for (const [chave, valor] of urlAtual.entries()) {
-                  novaUrl.append(chave, valor);
-                }
-
-                // Adicionar ou atualizar parâmetros específicos
-                novaUrl.set("cpf", cpfLimpo);
-                novaUrl.set("nome", dadosUsuario.nome);
-                novaUrl.set("numero", telefoneFormatado);
+                
+                // Criar URL com todos os parâmetros preservados
+                const redirectUrl = createUrlWithParams("../3/index.html", {
+                  cpf: cpfLimpo,
+                  nome: dadosUsuario.nome,
+                  numero: telefoneFormatado
+                });
 
                 // Redirecionar para a página de simulação com todos os parâmetros
-                window.location.href = `../3?${novaUrl.toString()}`;
+                window.location.href = redirectUrl;
               });
           } catch (error) {
             console.error("Erro ao processar dados:", error);
