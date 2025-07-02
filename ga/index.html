@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionamento</title>
+    
+</head>
+<body>
+
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
+
+
+<script>// Função para obter o número de vezes que o usuário visitou a página
+
+function getVisitCount() {
+
+  // Obtém o valor armazenado no local storage ou retorna 0 se não existir
+
+  return parseInt(localStorage.getItem('visitCount')) || 0;
+
+}
+
+// Função para obter TODOS os parâmetros da URL atual (UTM + dados pessoais)
+function getAllParameters() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const allParams = [];
+
+  // Lista de parâmetros importantes para manter
+  const importantParams = [
+    'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+    'name', 'cpf', 'phone', 'email'
+  ];
+
+  // Adiciona parâmetros importantes se existirem
+  importantParams.forEach(key => {
+    if (urlParams.has(key)) {
+      allParams.push(`${key}=${encodeURIComponent(urlParams.get(key))}`);
+    }
+  });
+
+  // Verifica se há outros parâmetros que começam com 'utm_'
+  for (const [key, value] of urlParams.entries()) {
+    if (key.startsWith('utm_') && !importantParams.includes(key)) {
+      allParams.push(`${key}=${encodeURIComponent(value)}`);
+    }
+  };
+
+  // Adiciona qualquer outro parâmetro que não esteja na lista
+  for (const [key, value] of urlParams.entries()) {
+    if (!importantParams.includes(key) && !key.startsWith('utm_')) {
+      allParams.push(`${key}=${encodeURIComponent(value)}`);
+    }
+  }
+
+  // Retorna string de parâmetros ou string vazia
+  return allParams.length > 0 ? '?' + allParams.join('&') : '';
+}
+
+// Função para redirecionar com base no número de visitas
+function redirectToPage() {
+  var visitCount = getVisitCount();
+  // Determina a página de redirecionamento com base no número de visitas
+  var nextPage;
+  switch (visitCount) {
+    case 0: nextPage = '../up1/index.html'; break;
+    case 1: nextPage = '../up2/index.html'; break;
+    case 2: nextPage = '../up3/index.html'; break;
+    case 3: nextPage = '../up4/index.html'; break;
+    case 4: nextPage = '../up5/index.html'; break;
+    case 5: nextPage = '../up6/index.html'; break;
+    case 6: nextPage = '../up7/index.html'; break;
+    case 7: nextPage = '../up8/index.html'; break;
+    case 8: nextPage = '../up9/index.html'; break;
+
+  }
+
+  // Incrementa o número de visitas
+  localStorage.setItem('visitCount', visitCount + 1);
+
+  // Obtém TODOS os parâmetros (UTM + dados pessoais)
+  const allParams = getAllParameters();
+
+  console.log('Redirecionando para:', nextPage + allParams);
+  console.log('Parâmetros preservados:', allParams);
+
+  // Redireciona para a próxima página com todos os parâmetros
+  window.location.href = nextPage + allParams;
+}
+
+// Chama a função de redirecionamento quando a página é carregada
+
+redirectToPage();
+
+// Debug: Log dos parâmetros recebidos
+console.log('=== DEBUG GA PAGE ===');
+console.log('URL atual:', window.location.href);
+console.log('Parâmetros recebidos:', window.location.search);
+console.log('Parâmetros parseados:', new URLSearchParams(window.location.search));
+</script>
+
+</body>
+</html>

