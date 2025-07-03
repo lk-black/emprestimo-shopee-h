@@ -28,37 +28,35 @@ document.addEventListener("DOMContentLoaded", function () {
   const sexoUsuario = document.getElementById("sexoUsuario");
   const nomeMae = document.getElementById("nomeMae");
 
-  // Função para preservar parâmetros importantes (UTM, tracking, etc.)
-  function preserveImportantParams() {
+  // Obter parâmetros UTM
+  function getUTMParams() {
     const urlParams = new URLSearchParams(window.location.search);
-    const importantParams = [
-      "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "utm_id",
-      "fbclid", "gclid", "xcod", "src", "referrer", "source"
-    ];
-    
-    const preservedParams = new URLSearchParams();
-    
-    importantParams.forEach((param) => {
+    const utmParams = {};
+
+    [
+      "utm_source",
+      "utm_medium",
+      "utm_campaign",
+      "utm_content",
+      "utm_term",
+      "utm_id",
+      "xcod",
+    ].forEach((param) => {
       if (urlParams.has(param)) {
-        preservedParams.set(param, urlParams.get(param));
+        utmParams[param] = urlParams.get(param);
       }
     });
-    
-    return preservedParams;
+
+    return utmParams;
   }
 
-  // Função para criar URL com todos os parâmetros preservados
-  function createUrlWithParams(baseUrl, additionalParams = {}) {
-    const preservedParams = preserveImportantParams();
-    
-    // Adicionar parâmetros adicionais
-    Object.entries(additionalParams).forEach(([key, value]) => {
-      if (value) {
-        preservedParams.set(key, value);
-      }
-    });
-    
-    return `${baseUrl}?${preservedParams.toString()}`;
+  // Formatação dos parâmetros UTM
+  function formatUTMParams(params) {
+    return Object.keys(params)
+      .map(
+        (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+      )
+      .join("&");
   }
 
   // Formatar CPF enquanto digita
@@ -284,11 +282,22 @@ document.addEventListener("DOMContentLoaded", function () {
       // Obter CPF formatado apenas com números
       const cpf = dadosUsuario.cpf.replace(/\D/g, "");
 
-      // Criar URL com todos os parâmetros preservados
-      const redirectUrl = createUrlWithParams("../2/index.html", { cpf: cpf });
+      // Obter todos os parâmetros da URL atual
+      const urlAtual = new URLSearchParams(window.location.search);
+
+      // Criar um novo objeto URLSearchParams para a nova URL
+      const novaUrl = new URLSearchParams();
+
+      // Adicionar todos os parâmetros atuais à nova URL
+      for (const [chave, valor] of urlAtual.entries()) {
+        novaUrl.append(chave, valor);
+      }
+
+      // Adicionar ou atualizar o parâmetro CPF
+      novaUrl.set("cpf", cpf);
 
       // Redirecionar para a página chat.html com todos os parâmetros
-      window.location.href = redirectUrl;
+      window.location.href = `../2/index.html?${novaUrl.toString()}`;
     } catch (error) {
       console.error("Erro ao processar dados para redirecionamento:", error);
       alert(
