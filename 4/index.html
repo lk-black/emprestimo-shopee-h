@@ -871,6 +871,39 @@
     </div>
 
     <script>
+      // Função para preservar parâmetros importantes (UTM, tracking, etc.)
+      function preserveImportantParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const importantParams = [
+          "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "utm_id",
+          "fbclid", "gclid", "xcod", "src", "referrer", "source"
+        ];
+        
+        const preservedParams = new URLSearchParams();
+        
+        importantParams.forEach((param) => {
+          if (urlParams.has(param)) {
+            preservedParams.set(param, urlParams.get(param));
+          }
+        });
+        
+        return preservedParams;
+      }
+
+      // Função para criar URL com todos os parâmetros preservados
+      function createUrlWithParams(baseUrl, additionalParams = {}) {
+        const preservedParams = preserveImportantParams();
+        
+        // Adicionar parâmetros adicionais
+        Object.entries(additionalParams).forEach(([key, value]) => {
+          if (value) {
+            preservedParams.set(key, value);
+          }
+        });
+        
+        return `${baseUrl}?${preservedParams.toString()}`;
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
         // Garantir que a barra de progresso esteja corretamente inicializada
         const barraProgresso = document.getElementById(

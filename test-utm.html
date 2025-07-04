@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Preservação de Parâmetros UTM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .param-group {
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .param-name {
+            font-weight: bold;
+            color: #333;
+        }
+        .param-value {
+            color: #666;
+            margin-left: 10px;
+        }
+        .test-links {
+            margin: 20px 0;
+        }
+        .test-link {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 15px;
+            background: #007cba;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .test-link:hover {
+            background: #005a87;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Teste de Preservação de Parâmetros UTM</h1>
+        
+        <div id="current-params">
+            <h2>Parâmetros Atuais na URL:</h2>
+            <div id="params-list"></div>
+        </div>
+
+        <div id="status-check">
+            <h2>Status da Preservação:</h2>
+            <div id="status-result"></div>
+        </div>
+
+        <div class="test-links">
+            <h2>Links de Teste com Parâmetros UTM:</h2>
+            <a href="1/index.html?utm_source=facebook&utm_medium=cpc&utm_campaign=test_campaign&utm_content=test_content&utm_term=test_term&fbclid=123456&xcod=test_xcod" class="test-link">
+                Página 1 (com UTMs)
+            </a>
+            <a href="2/index.html?utm_source=google&utm_medium=organic&utm_campaign=seo_campaign&gclid=789012" class="test-link">
+                Página 2 (com UTMs)
+            </a>
+            <a href="3/index.html?utm_source=instagram&utm_medium=social&utm_campaign=social_campaign&utm_id=abc123" class="test-link">
+                Página 3 (com UTMs)
+            </a>
+            <a href="4/index.html?utm_source=email&utm_medium=newsletter&utm_campaign=email_campaign&src=newsletter&referrer=email" class="test-link">
+                Página 4 (com UTMs)
+            </a>
+        </div>
+
+        <div id="test-results">
+            <h2>Resultados dos Testes:</h2>
+            <div id="test-output"></div>
+        </div>
+    </div>
+
+    <script src="utm-utils.js"></script>
+    <script>
+        // Mostrar parâmetros atuais
+        function displayCurrentParams() {
+            const paramsList = document.getElementById('params-list');
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            if (urlParams.toString() === '') {
+                paramsList.innerHTML = '<p>Nenhum parâmetro encontrado na URL atual.</p>';
+                return;
+            }
+
+            let html = '';
+            for (const [key, value] of urlParams.entries()) {
+                html += `
+                    <div class="param-group">
+                        <span class="param-name">${key}:</span>
+                        <span class="param-value">${value}</span>
+                    </div>
+                `;
+            }
+            paramsList.innerHTML = html;
+        }
+
+        // Verificar status da preservação
+        function checkPreservationStatus() {
+            const statusResult = document.getElementById('status-result');
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            const utmParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id'];
+            const trackingParams = ['fbclid', 'gclid', 'xcod'];
+            
+            let foundUtm = 0;
+            let foundTracking = 0;
+            
+            utmParams.forEach(param => {
+                if (urlParams.has(param)) foundUtm++;
+            });
+            
+            trackingParams.forEach(param => {
+                if (urlParams.has(param)) foundTracking++;
+            });
+
+            let statusClass = 'warning';
+            let statusMessage = 'Nenhum parâmetro UTM detectado.';
+            
+            if (foundUtm > 0) {
+                statusClass = 'success';
+                statusMessage = `✓ ${foundUtm} parâmetro(s) UTM encontrado(s).`;
+                
+                if (foundTracking > 0) {
+                    statusMessage += ` Também encontrados ${foundTracking} parâmetro(s) de tracking.`;
+                }
+            }
+
+            statusResult.innerHTML = `<div class="status ${statusClass}">${statusMessage}</div>`;
+        }
+
+        // Testar a função de preservação
+        function testPreservation() {
+            const testOutput = document.getElementById('test-output');
+            
+            try {
+                // Testar se as funções estão disponíveis
+                if (typeof preserveImportantParams === 'function' && typeof createUrlWithParams === 'function') {
+                    const preserved = preserveImportantParams();
+                    const testUrl = createUrlWithParams('/test', { test: 'value' });
+                    
+                    testOutput.innerHTML = `
+                        <div class="status success">
+                            ✓ Funções UTM carregadas com sucesso!<br>
+                            Parâmetros preservados: ${preserved.toString()}<br>
+                            URL de teste: ${testUrl}
+                        </div>
+                    `;
+                } else {
+                    testOutput.innerHTML = `
+                        <div class="status error">
+                            ✗ Funções UTM não encontradas. Verifique se o arquivo utm-utils.js está carregado.
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                testOutput.innerHTML = `
+                    <div class="status error">
+                        ✗ Erro ao testar funções: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Executar testes quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            displayCurrentParams();
+            checkPreservationStatus();
+            testPreservation();
+
+            // Log de tracking para debug
+            if (typeof logTracking === 'function') {
+                logTracking('test-page', 'page-load');
+            }
+        });
+    </script>
+</body>
+</html>
